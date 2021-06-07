@@ -75,6 +75,48 @@
 (defun titledp (name)
   (member (first name) '(mr ms miss mrs)))
 
+(defvar male-first-names)
+(defvar female-first-names)
 (setf male-first-names '(john kim richard fred george))
 (setf female-first-names '(jane mary wanda barbara kim))
 
+(defun malep (name)
+  (and (member name male-first-names)
+       (not (member name female-first-names))))
+
+(defun femalep (name)
+  (and (member name female-first-names)
+       (not (member name male-first-names))))
+
+(defun give-title (name)
+  "Returns a name with an appropriate title on the front"
+  (cond ((titledp name) name)
+	((malep (first name)) (cons 'Mr name))
+	((femalep (first name)) (cons 'Ms name))
+	(t (append '(mr or ms) name))))
+
+(defun gender-ambigious-name ()
+  (intersection male-first-names female-first-names))
+
+(defun uniquely-male-names ()
+  (set-difference male-first-names female-first-names))
+
+;;;6.26
+(defun right-side (feature)
+  (rest (member '-vs- feature)))
+
+(defun left-side (feature)
+  (reverse (rest (member '-vs- (reverse feature)))))
+
+(defun count-common (feature)
+  (length (intersection (left-side feature) (right-side feature))))
+
+(defun compare (feature)
+  (cons (count-common feature) '(common features)))
+
+(defvar words)
+(setf words '((one un)
+	      (two deux)
+	      (three trois)
+	      (four quatre)
+	      (five cinq)))
