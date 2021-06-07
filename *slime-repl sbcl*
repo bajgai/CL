@@ -1,0 +1,143 @@
+; SLIME 2.26.1; processing (DEFUN HOWCOMPUTE ...)
+
+; file: /private/var/tmp/slimeZ6ExGN
+; in: DEFUN HOWCOMPUTE
+;     (EQUALS (+ X Y) Z)
+; 
+; caught STYLE-WARNING:
+;   undefined function: COMMON-LISP-USER::EQUALS
+; 
+; compilation unit finished
+;   Undefined function:
+;     EQUALS
+;   caught 1 STYLE-WARNING condition
+; processing (DEFUN HOWCOMPUTE ...)
+; processing (DEFUN HOWCOMPUTE ...)
+CL-USER> (compute 3 2 6)
+; in: COMPUTE 3
+;     (COMPUTE 3 2 6)
+; 
+; caught STYLE-WARNING:
+;   undefined function: COMMON-LISP-USER::COMPUTE
+; 
+; compilation unit finished
+;   Undefined function:
+;     COMPUTE
+;   caught 1 STYLE-WARNING condition
+; Evaluation aborted on #<UNDEFINED-FUNCTION COMPUTE {7007B35A73}>.
+CL-USER> (howcompute 3 2 6)
+(BEATS ME)
+CL-USER> (equal 2 2)
+T
+CL-USER> (equal (* 3 2) 6)
+T
+; processing (DEFUN HOWCOMPUTE ...)
+CL-USER> (howcompute 3 2 6)
+
+PRODUCT-OF
+CL-USER> (howcompute 2 2 4)
+SUM-OF
+; processing (DEFUN SMALL-POSITIVE-ODDP ...)
+; processing (DEFUN GTEST ...)
+CL-USER> (and nil t t)
+
+NIL
+CL-USER> (and 'geroge nil 'harry)
+NIL
+CL-USER> (and 'geroge 'fred 'harry)
+HARRY
+CL-USER> (and 1 2 3 4 5)
+5
+CL-USER> (or nil t t)
+T
+CL-USER> (or 'geroge nil 'harry)
+GEROGE
+CL-USER> (or 'geroge 'fred 'harry)
+GEROGE
+CL-USER> (or nil 'fre 'harry)
+FRE
+CL-USER> (and 'fee 'fie 'foo)
+FOO
+CL-USER> (or 'fee 'fie 'foo)
+FEE
+CL-USER> (or nil 'foe nil)
+FOE
+CL-USER> (and 'fee 'fie nil)
+NIL
+CL-USER> (and (equal 'abc 'abc) 'yes)
+YES
+CL-USER> (or (equal 'abc 'abc) 'yes)
+T
+; processing (DEFUN HOW-ALIKE ...)
+
+; file: /private/var/tmp/slimej3kU2n
+; in: DEFUN HOW-ALIKE
+;     (COND ((EQUAL A B) 'THE-SAME) ((AND (ODDP A) (ODDP B)) 'BOTH-ODD)
+;           ((AND (NOT (ODDP A)) (NOT (ODDP B))) 'BOTH-EVEN)
+;           ((AND (< A 0) (< B 0)) BOTH-NEGATIVE) (T 'NOT-ALIKE))
+; --> IF IF IF 
+; ==>
+;   (IF (AND (< A 0) (< B 0))
+;       BOTH-NEGATIVE
+;       (THE T 'NOT-ALIKE))
+; 
+; caught WARNING:
+;   undefined variable: COMMON-LISP-USER::BOTH-NEGATIVE
+; 
+; compilation unit finished
+;   Undefined variable:
+;     BOTH-NEGATIVE
+;   caught 1 WARNING condition
+; processing (DEFUN HOW-ALIKE ...)
+; processing (DEFUN HOW-ALIKE ...)
+CL-USER> (how-alike 7 7)
+
+THE-SAME
+CL-USER> (how-alike 3 5)
+BOTH-ODD
+CL-USER> (how-alike -2 -3)
+BOTH-NEGATIVE
+CL-USER> (how-alike 5 8)
+NOT-ALIKE
+; processing (DEFUN SAME-SIGN ...)
+CL-USER> (same-sign 0 0)
+
+T
+CL-USER> (same-sign -3 -4)
+T
+CL-USER> (same-sign 3 5)
+T
+CL-USER> (same-sign -3 4)
+NIL
+; processing (DEFUN GEQ ...)
+; processing (DEFUN GEQ ...)
+CL-USER> (geq 4 4)
+
+T
+CL-USER> (geq 5 4)
+T
+CL-USER> (geq 4 5)
+NIL
+; processing (DEFUN FUN416 ...)
+CL-USER> (fun416 5)
+
+25
+CL-USER> (fun416 -5)
+-10
+CL-USER> (fun416 4)
+2
+; processing (DEFUN FUN417 ...)
+CL-USER> (fun417 'boy 'child)
+
+T
+CL-USER> (fun417 'boy 'adult)
+NIL
+CL-USER> (fun417 'man 'adult)
+T
+; processing (DEFUN PLAY ...)
+CL-USER> (play 'rock 'scissors)
+
+FIRST-WINS
+CL-USER> (play 'scissors 'rock)
+SECOND-WINDS
+CL-USER> 
