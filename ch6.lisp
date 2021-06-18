@@ -1,3 +1,6 @@
+
+
+
 (defun add-to-end (x e)
   "Adds element E to the end of the list X."
   (append x (list e)))
@@ -114,9 +117,201 @@
 (defun compare (feature)
   (cons (count-common feature) '(common features)))
 
+;;;Example
 (defvar words)
 (setf words '((one un)
 	      (two deux)
 	      (three trois)
 	      (four quatre)
 	      (five cinq)))
+
+;;;Example
+(defvar sounds)
+(setf sounds
+      '((cow . moo)
+	(pig . oink)
+	(cat . meow)
+	(dog . woof)
+	(bird . tweet)))
+
+;;;6.28
+(defvar produce)
+(setf produce
+      '((apple . fruit)
+       (celery . veggie)
+       (banana . fruit)
+	(lettuce . veggie)))
+
+;;;Example
+(defvar things)
+(setf things
+      '((object1 large green shiny cube)
+	(object2 small red dull metal cube)
+	(object3 red small dull plastic cube)
+	(object4 small dull blue metal cube)
+	(object5 small shiny red four-sided pyramid)
+	(object6 large shiny green sphere)))
+
+(defun description (x)
+  (rest (assoc x things)))
+
+(defun differences (x y)
+  (set-exclusive-or (description x)
+		    (description y)))
+
+;;;Example
+(defvar quality-table
+  '((large . size)
+    (small . size)
+    (red . color)
+    (green . color)
+    (blue . color)
+    (shiny . luster)
+    (dull . luster)
+    (metal . material)
+    (plastic . material)
+    (cube . shape)
+    (sphere . shape)
+    (pyramid . shape)
+    (four-sided . shape)))
+
+(defun quality (x)
+  (cdr (assoc x quality-table)))
+
+(defun quality-difference (x y)
+  (quality (first (differences x y))))
+
+(defun contrast (x y)
+  (remove-duplicates
+   (sublis quality-table (differences x y))))
+
+;;;6.30
+(defvar books)
+(setf books
+      '((war-and-peace leo-tolstoy)
+	(the-idiot fyodor-dostoeevsky)
+	(zen-and-the-art-of-motorcycle-maintenance Robert-Pirsig)
+	(the-three-body-problem lui-cixin)
+	(the-illiad homer)))
+
+;;;6.31
+(defun who-wrote (book)
+  (second (assoc book books
+		 )))
+
+;;;6.34
+(defvar atlas)
+(setf atlas
+      '((pennsylvania pittsburgh)
+	(new-jersey newark)
+	(pennsylvania johnstown)
+	(ohio columbus)
+	(new-jersey princeton)
+	(new-jersey trenton)))
+
+(defvar redesigned-atlas)
+(setf redesigned-atlas
+      '((pennsylvania (pittsburgh johnstown))
+	(new-jersey (newark princeton trenton))
+	(ohio (columbus))))
+;;6.35
+(defvar nerd-states)
+(setf nerd-states
+      '((sleeping eating)
+	(eating waiting-for-a-computer)
+	(waiting-for-a-computer programming)
+	(programming debugging)
+	(debugging sleeping)))
+
+(defun nerdus (state-name)
+  (second (assoc state-name nerd-states)))
+
+(defun sleepless-nerd (state-name)
+  (if (equal state-name 'debugging) 'eating (nerdus state-name)))
+
+(defun nerd-on-caffine (state-name)
+  (nerdus (nerdus state-name)))
+
+;;;6.36
+(defun swap-first-last (x)
+  (append (last x) (butlast (rest x)) (list (first x))))
+
+;;;6.37
+(defun rotate-left (x)
+  (append (rest x) (list (first x))))
+
+(defun rotate-right (x)
+  (butlast (append (last x) x)))
+
+;;;Example
+(defvar rooms)
+(setf rooms
+      '((living-room
+	 (north front-staris)
+	 (south dinning-room)
+	 (east kitchen))
+	
+	(upstaris-bedroom
+	 (south front-stairs)
+	 (west library))
+	
+	(dining-room
+	 (north living-room)
+	 (east pantry)
+	 (west downstairs-bedroom))
+
+	(kitchen
+	 (south pantry)
+	 (west living-room))
+
+	(pantry
+	 (north kitchen)
+	 (west dinning-room))
+
+	(downstaris-bedroom
+	 (east dinning-room)
+	 (north back-stairs))
+
+	(back-stairs
+	 (north library)
+	 (south downstaris-bedroom))
+
+	(front-stairs
+	 (north upstairs-bedroom)
+	 (south living-room))
+
+	(library
+	 (east upstairs-bedroom)
+	 (south back-stairs))))
+
+(defun choices (room)
+  (rest (assoc room rooms)))
+
+(defun look (direction room)
+  (second (assoc direction (choices room))))
+
+(defvar loc)
+(setf loc 'pantry)
+
+(defun set-robbie-location (place)
+  "Moves robbie to PLACE by setting the variable LOC."
+  (setf loc place))
+
+(defun how-many-choices ()
+  (length (choices loc)))
+
+(defun upstairsp (place)
+  (if (or (equal place 'library) (equal place 'upstairs-bedroom)) t ))
+
+(defun onstairsp (place)
+  (if (or (equal place 'front-stairs) (equal place 'back-stairs)) t))
+
+(defun where ()
+  (cond ((upstairsp loc) (list 'robbie 'is 'upstaris 'in 'the loc))
+	((onstairsp loc) (list 'robbie 'is 'on 'the loc))
+	(t (list 'robbie 'is 'downstaris 'in 'the loc))))
+
+(defun move (dir)
+  (let ((room (look dir loc)))
+    (if room (set-robbie-location room) '(ouch! robbie hit a wall))
+    (if room (where))))
