@@ -315,3 +315,6 @@
   (let ((room (look dir loc)))
     (if room (set-robbie-location room) '(ouch! robbie hit a wall))
     (if room (where))))
+
+(defun royal-we (x)
+  (subst 'we 'i x))
