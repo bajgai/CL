@@ -1,0 +1,9 @@
+(defun square (n) (* n n))
+
+(defvar words)
+(setf words
+      '((one un)
+	(two deux)
+	(three trois)
+	(four quatre)
+	(five cinq)))
