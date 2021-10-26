@@ -52,17 +52,45 @@
 
 (defvar note-table)
 (setf note-table
-      '(('c . 1)
-	('c-sharp . 2)
-	('d . 3)
-	('d-sharp . 4)
-	('e . 5)
-	('f . 6)
-	('f-sharp . 7)
-	('g . 8)
-	('g-sharp . 9)
-	('a . 10)
-	('a-sharp . 11)
-	('b . 12)))
-(defun numbes (x)
-  (mapcar #'(lambda (entry)
+      '((c 1)
+	(c-sharp 2)
+	(d 3)
+	(d-sharp 4)
+	(e 5)
+	(f 6)
+	(f-sharp 7)
+	(g 8)
+	(g-sharp 9)
+	(a 10)
+	(a-sharp 11)
+	(b 12)))
+(defun numbers (notes)
+  (mapcar #'(lambda (entry) (second (assoc entry note-table))) notes))
+
+(defun table-search(x)
+  (find-if #'(lambda (entry) (equal x (second entry))) note-table))
+
+(defun notes(nums)
+  (mapcar #'(lambda (entry) (first (table-search entry))) nums))
+  
+(defun raise (n nums)
+  (mapcar #'(lambda (entry) (+ entry n)) nums))
+
+(defun normalize (x)
+  (mapcar #'(lambda (entry) (mod  entry 12)) x))
+
+(defun transpose (n song)
+  (notes (normalize (raise n (numbers song)))))
+
+;;; example
+
+(defun count-zeros (x)
+  (length (remove-if-not #'zerop x)))
+
+;;; exercise 7.11
+
+(defun grater-than-one-less-than-five (x)
+  (remove-if-not #'(lambda (entry) (and (< entry 5) (> entry 1))) x))
+
+(defun thes (x)
+  (length (remove-if-not #'(lambda (entry) (equal entry 'the)) x)))
