@@ -1,12 +1,13 @@
 
+
 ;;;example
 (defvar words)
 (setf words
       '((one un)
-	(two deux)
-	(three trois)
-	(four quatre)
-	(five cinq)))
+        (two deux)
+        (three trois)
+        (four quatre)
+        (five cinq)))
 
 
 ;;; Exercise 7.1
@@ -22,9 +23,9 @@
 
 (setf daily-planet
       '((olsen jimmy 123-76-4535 cub-reporter)
-	(kent clark 089-52-6787 reporter)
-	(lane lois 951-25-1438 reporter)
-	(white perry 355-16-7439 editor)))
+        (kent clark 089-52-6787 reporter)
+        (lane lois 951-25-1438 reporter)
+        (white perry 355-16-7439 editor)))
 
 ;;; Exercise 7.4
 
@@ -53,17 +54,17 @@
 (defvar note-table)
 (setf note-table
       '((c 1)
-	(c-sharp 2)
-	(d 3)
-	(d-sharp 4)
-	(e 5)
-	(f 6)
-	(f-sharp 7)
-	(g 8)
-	(g-sharp 9)
-	(a 10)
-	(a-sharp 11)
-	(b 12)))
+        (c-sharp 2)
+        (d 3)
+        (d-sharp 4)
+        (e 5)
+        (f 6)
+        (f-sharp 7)
+        (g 8)
+        (g-sharp 9)
+        (a 10)
+        (a-sharp 11)
+        (b 12)))
 (defun numbers (notes)
   (mapcar #'(lambda (entry) (second (assoc entry note-table))) notes))
 
@@ -92,6 +93,22 @@
 (defun grater-than-one-less-than-five (x)
   (remove-if-not #'(lambda (entry) (and (< entry 5) (> entry 1))) x))
 
+;;; exercise 7.12
 (defun thes (x)
   (length (remove-if-not #'(lambda (entry) (equal entry 'the)) x)))
 
+;;;exercise 7.13
+(defun exactly-two(x)
+  (remove-if-not #'(lambda (entry) (equal (length entry) 2)) x))
+
+;;; Example
+(defun my-setdiff (x y)
+  (remove-if #'(lambda (e) (member e y)) x))
+
+;;; exercise 7.14
+(defun my-setint (x y)
+  (remove-if-not #'(lambda (e) (member e y)) x))
+
+;;; exercise 7.15
+(defun my-setunion (x y)
+  (append (my-setdiff x y) (my-setint x y) (my-setdiff y x)))
